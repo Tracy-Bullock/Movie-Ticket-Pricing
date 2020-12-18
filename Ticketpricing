@@ -1,0 +1,118 @@
+# This program calculated the ticket price to see a movie
+
+
+# A Function to find the age of the patron and validate the response
+    # Prompt the user for the year in which they were born
+    # Calculate their age
+    # If they are 3 and under then they are free, get the information for the adult
+    # If they are older than 110, then it is invalid
+    # Validate their responses
+    
+def age():
+    while True:
+        try:
+            birth_year = int(input("\nIn what year were you born? "))
+            age = 2020 - birth_year
+            if 3 < age <= 110:
+                break
+            elif 0 < age <= 3:
+                print("\nChildren 3 years old and younger are free of charge.")
+                print("\nFor the accompanying adult however, ...")
+                
+            else:
+                print("\nInvalid Birth Year")
+                
+        except ValueError:
+            print("\nInvalid Response")
+    
+    return age
+
+# A Function to confirm that they have entered the correct age
+    # Ask user if the calculated age is correct
+    # If yes, thank them and continue
+    # If no, appologize and start over with getting their age
+    # Validate their responses
+
+def confirm(x):
+    while True:
+        try:
+            confirm = input("\nThis means that you are {} years old. Is this correct? ".format(x)).upper()
+            if confirm == "YES":
+                print("\nOk, thank you.")
+                break
+            elif confirm == "NO":
+                print("\nSorry, I must have calculated something wrong.")
+                age()
+            else:
+                print("\nInvalid Response")
+                
+        except ValueError:
+            print("\nInvalid Response")
+
+    return x
+    
+# A Function to determine if the patron will recieve a discount
+    # Set the base ticket price to $8.75
+    # Children 12 and under, along with seniors 60 and older recieve discounts
+    # Set the discount to $3.50
+    # Determine if their age falls into a discounted range
+    # Deduct the discount from the price if applicable
+    # If not, then advice them that there is no discounts being applied
+
+def discount(x):
+    price = 8.75
+    if x <= 12:
+        dis_type1 = "Child Discount"
+        price -= 3.5
+        print("\nYou are recieving the {}.".format(dis_type1))
+        return price
+
+    elif x >= 60:
+        dis_type2 = "Senior Discount"
+        price -= 3.5
+        print("\nYou are recieving the {}.".format(dis_type2))
+        return price
+    
+    else:
+        print("\nThere are currently no available discounts for your age group.")
+        return price
+
+# A Function to determine if they want to see the movie in 3D
+    # Set the surcharge at $3.50 for 3D movies
+    # Ask the patron if they want to see it in 3D
+    # If yes, add the surcharge to the ticket price and advise them of the total
+    # If no, advise them of the ticket price
+
+def movie_type(x):
+    surcharge = 3.5
+    MovieN3d = input("\nDo you want to see this movie in 3D? ").upper()
+    while True:
+        if MovieN3d == "YES":
+            price = x + surcharge
+            print("\nGreat, your total is ${}, and your movie will begin at the scheduled time.".format(price))
+            break
+        
+        elif MovieN3d == "NO":
+            price = x
+            print("\nGreat, your total is ${}, and your movie will begin at the scheduled time.".format(price))
+            break
+        
+        else:
+            print("\nInvalid Response")
+            MovieN3d = input("\nDo you want to see this movie in 3D? ").upper()
+            
+    return
+
+
+# Greet the user
+
+print("Welcome to Bullock's Cinomatic ticket booth!")
+
+# Pass the age function into the confirm functionm then to the discont function and that into the movie type funtcion
+
+movie_type(discount(confirm(age())))
+
+# Tell the user to enjoy the movie
+
+print("\nEnjoy the movie and have a great day!")
+
